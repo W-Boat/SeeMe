@@ -27,6 +27,8 @@ export interface DeviceState {
   foregroundApp?: string;
   foregroundActivity?: string;
   inputState: InputState;
+  statusText?: string; // 自定义状态文案（借鉴 sleepy 的在线状态）
+  mediaTitle?: string; // 正在播放的媒体（借鉴 SleepyXposed 的媒体上报）
   lastSeen: number; // epoch ms
 }
 
@@ -38,6 +40,8 @@ export interface ReportBody {
   foregroundApp?: string;
   foregroundActivity?: string;
   inputState?: InputState;
+  statusText?: string;
+  mediaTitle?: string;
 }
 
 const KV_PREFIX = "device:";
@@ -122,6 +126,8 @@ async function handleReport(request: Request, env: Env): Promise<Response> {
     foregroundApp: body.foregroundApp ?? existing?.foregroundApp,
     foregroundActivity: body.foregroundActivity ?? existing?.foregroundActivity,
     inputState: body.inputState ?? existing?.inputState ?? "unknown",
+    statusText: body.statusText ?? existing?.statusText,
+    mediaTitle: body.mediaTitle ?? existing?.mediaTitle,
     lastSeen: Date.now(),
   };
 

@@ -119,6 +119,11 @@ function deviceCard(d: DeviceState, now: number): string {
         </div>
         <div class="head-badges">${onlineBadge(d, now)}</div>
       </header>
+      ${
+        d.statusText
+          ? `<div class="status-banner">${escapeHtml(d.statusText)}</div>`
+          : ""
+      }
       <div class="card-body">
         ${batteryRing(d.battery.level, d.battery.charging)}
         <div class="card-info">
@@ -127,6 +132,14 @@ function deviceCard(d: DeviceState, now: number): string {
             <div class="field-label">输入状态</div>
             <div>${inputBadge(d.inputState)}</div>
           </div>
+          ${
+            d.mediaTitle
+              ? `<div class="field">
+                   <div class="field-label">正在播放</div>
+                   <div class="field-value media">🎵 ${escapeHtml(d.mediaTitle)}</div>
+                 </div>`
+              : ""
+          }
         </div>
       </div>
       <footer class="card-foot">

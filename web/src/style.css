@@ -305,6 +305,32 @@ body {
   }
 }
 
+/* ---------- 自定义状态横幅 ---------- */
+
+.status-banner {
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-banner::before {
+  content: "●";
+  font-size: 9px;
+  color: var(--green);
+}
+
+.media {
+  color: var(--yellow);
+}
+
 /* ---------- 卡片主体 ---------- */
 
 .card-body {

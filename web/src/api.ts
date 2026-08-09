@@ -16,6 +16,8 @@ export interface DeviceState {
   foregroundApp?: string;
   foregroundActivity?: string;
   inputState: InputState;
+  statusText?: string;
+  mediaTitle?: string;
   lastSeen: number;
   online: boolean;
 }
