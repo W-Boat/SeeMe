@@ -1,6 +1,6 @@
-# SeeMe Windows 采集端
+# SeeMe Windows 采集端（托盘版）
 
-后台采集 Windows 的前台窗口、电量、输入状态并上报到 SeeMe 服务端。
+后台采集 Windows 的前台窗口、电量、输入状态并上报到 SeeMe 服务端。运行后**仅显示在系统托盘**（无控制台窗口）。
 
 ## 安装
 
@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ```json
 {
-  "server_url": "https://seeme.你的子域.workers.dev",
+  "server_url": "https://seeme.xxx.workers.dev",
   "auth_token": "与 Workers 服务端一致的共享密钥",
   "device_name": "可选，默认取计算机名",
   "idle_seconds": 10,
@@ -26,13 +26,16 @@ pip install -r requirements.txt
 
 首次运行会自动生成 `device_id`（UUID）写回 config.json。
 
-## 运行
+## 运行（托盘）
 
 ```powershell
-python seeme_client.py
+python seeme_client.py          # 带控制台调试
+pythonw seeme_client.py         # 无窗口，仅托盘
 ```
 
-## 开机自启
+托盘图标菜单：电量 / 前台应用 / 输入状态（实时）、打开仪表盘、退出。
+
+## 开机自启（无窗口）
 
 以管理员 PowerShell 运行：
 
