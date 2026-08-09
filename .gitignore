@@ -1,0 +1,37 @@
+# android 为独立仓库（SeeMe-Android）
+android/
+
+# 本地构建工具与 agent 配置
+.android-sdk/
+.android-dist/
+.reasonix/
+reasonix.toml
+
+# secrets
+secrets/
+.dev.vars
+
+# node
+node_modules/
+dist/
+*.log
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# os
+Thumbs.db
+.DS_Store

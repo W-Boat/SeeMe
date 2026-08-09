@@ -1,0 +1,17 @@
+name = "seeme"
+main = "src/index.ts"
+compatibility_date = "2025-08-01"
+account_id = "64ac641087a1fadebcbd5699b9daf576"
+
+kv_namespaces = [
+  { binding = "DEVICES", id = "9459ecce45c94dddbd5d97e901549f58" }
+]
+
+[assets]
+directory = "../web/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[vars]
+# AUTH_TOKEN 通过 `wrangler secret put AUTH_TOKEN` 注入生产环境，
+# 本地开发放 workers/.dev.vars（不入库）

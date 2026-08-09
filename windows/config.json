@@ -1,0 +1,10 @@
+{
+  "server_url": "https://seeme.liuter.workers.dev",
+  "auth_token": "xr3smwnc61hli25ofkeya4j987gbuv0d",
+  "device_name": "",
+  "idle_seconds": 10,
+  "poll_interval": 1,
+  "heartbeat_interval": 60,
+  "battery_report_delta": 5,
+  "device_id": "def8ad95-739b-43fa-94f1-2f825ab926dc"
+}
