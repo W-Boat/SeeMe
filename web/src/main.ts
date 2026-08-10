@@ -14,6 +14,7 @@ const OFFLINE_LABEL_MS = 30_000;
 let devices = new Map<string, DeviceState>();
 let token = getToken();
 let tokenModal: HTMLDivElement | null = null;
+let connError = false;
 
 function timeAgo(ts: number, now: number): string {
   const diff = Math.max(0, Math.floor((now - ts) / 1000));
@@ -97,6 +98,7 @@ function onlineBadge(d: DeviceState, now: number): string {
 
 function deviceCard(d: DeviceState, now: number): string {
   const name = d.deviceName || d.deviceId;
+  const battery = d.battery ?? { level: 0, charging: false };
   const fgAppHtml = d.foregroundApp
     ? `<div class="field">
          <div class="field-label">前台应用</div>
@@ -125,9 +127,9 @@ function deviceCard(d: DeviceState, now: number): string {
           : ""
       }
       <div class="card-body">
-        ${batteryRing(d.battery.level, d.battery.charging)}
+        ${batteryRing(battery.level, battery.charging)}
         <div class="card-info">
-          ${app}
+          ${fgAppHtml}
           <div class="field">
             <div class="field-label">输入状态</div>
             <div>${inputBadge(d.inputState)}</div>
@@ -144,8 +146,8 @@ function deviceCard(d: DeviceState, now: number): string {
       </div>
       <footer class="card-foot">
         <span class="updated">最后活跃 ${timeAgo(d.lastSeen, now)}</span>
-        <span class="charging ${d.battery.charging ? "on" : ""}">
-          ${d.battery.charging ? "充电中" : "未充电"}
+        <span class="charging ${battery.charging ? "on" : ""}">
+          ${battery.charging ? "充电中" : "未充电"}
         </span>
       </footer>
     </section>`;
@@ -170,12 +172,21 @@ function render(now: number): void {
         <button class="ghost-btn" id="token-btn">🔑 设置 Token</button>
       </div>
     </header>
+    ${
+      connError
+        ? `<div class="conn-banner">⚠️ 无法连接服务器，请检查网络 / 代理 / 域名是否可达</div>`
+        : ""
+    }
     <main class="grid">
       ${
         list.length === 0
           ? `<div class="empty">
                <div class="empty-icon">📡</div>
-               <p>还没有设备上报状态</p>
+               <p>${
+                 connError
+                   ? "无法连接服务器，稍后自动重试…"
+                   : "还没有设备上报状态"
+               }</p>
                <p class="dim-text">启动 Android 客户端或 Windows 脚本后，这里会出现设备卡片</p>
              </div>`
           : list.map((d) => deviceCard(d, now)).join("")
@@ -257,15 +268,18 @@ async function refresh(): Promise<void> {
   }
   try {
     const resp = await fetchStatus(token);
+    connError = false;
     render(resp.serverTime);
   } catch (err) {
     if (err instanceof TokenError) {
       token = null;
+      connError = false;
       render(Date.now());
       showTokenModal();
       return;
     }
-    // 网络错误时保留上次渲染，仅在 footer 提示
+    // 网络错误：标记连接失败并提示（不假装成空列表）
+    connError = true;
     console.warn("refresh failed:", err);
     render(Date.now());
   }

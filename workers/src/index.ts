@@ -45,8 +45,8 @@ export interface ReportBody {
 }
 
 const KV_PREFIX = "device:";
-/** 超过该时长无心跳视为离线 */
-const OFFLINE_THRESHOLD_MS = 30_000;
+/** 超过该时长无心跳视为离线（客户端心跳 60s，留 1.5 倍余量） */
+const OFFLINE_THRESHOLD_MS = 90_000;
 
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",

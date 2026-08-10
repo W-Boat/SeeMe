@@ -547,6 +547,18 @@ body {
   margin-top: 18px;
 }
 
+/* ---------- 连接错误横幅 ---------- */
+
+.conn-banner {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--yellow);
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
 /* ---------- 页脚 ---------- */
 
 .page-foot {

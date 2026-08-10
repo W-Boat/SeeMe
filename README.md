@@ -98,3 +98,7 @@ schtasks /Delete /TN SeeMeClient /F   # 卸载
 ## 鉴权
 
 所有 `/api/*` 接口需请求头 `X-Auth-Token`，与 Workers 的 `AUTH_TOKEN` secret 一致。Token 不要提交到仓库。
+
+## API 文档
+
+详细接口文档见 [docs/api.md](docs/api.md)：数据模型、`POST /api/report`（增量合并语义）、`GET /api/status`（在线判定）、错误码、客户端接入建议。
